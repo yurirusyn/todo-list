@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
+    rel="stylesheet"
+  />
+    <link rel="stylesheet" href="./style.css" />
+</head>  
+    <body>
+      <div class="" >
+<!-- 2 -->
+<div class="backdrop is-hidden" data-modal>
+    <div class="modal">
+      <button type="button" class="close-btn" data-modal-close>
+        <span class="data-model-span"
+          ><svg class="modal-icon-close" width="11" height="11">
+            <use href="./images/sprite.svg#icon-Vector-1"></use></svg
+        ></span>
+      </button>
+      <form action="#" class="login-form">
+        <div class="modal-field">
+          <label class="modal-lable" for="user-name">Title</label>
+          <span class="input-wrap">
+            <input
+              type="text"
+              name="user-name"
+              class="modal-input"
+              id="user-name"
+            />
+          </span>
+        </div>
+        <div class="modal-field">
+            <label class="modal-lable" for="user-comment">Description</label>
+            <textarea
+              name="user-comment"
+              id="user-comment"
+              class="modal-text"
+              placeholder="Enter text"
+            ></textarea>
+          </div>
+          <input
+             class="modal-date"
+             id="party"
+             type="datetime-local"
+             name="partydate"
+                     />
+        <div class="submit-button-container">
+            <button type="submit" class="submit-button">Create</button>
+          </div>
+      </form>
+    </div>
+</div>
+
+
+<!-- Modal editing task -->
+
+<div class="backdrop is-hidden" data-modalEditing>
+  <div class="modal">
+    <button type="button" class="close-btn" data-modalEditing-close>
+      <span class="data-model-span"
+        ><svg class="modal-icon-close" width="11" height="11">
+          <use href="./images/sprite.svg#icon-Vector-1"></use></svg
+      ></span>
+    </button>
+    <form action="#" class="login-formEditing">
+      <div class="modal-field">
+        <label class="modal-lable" for="user-name">Title</label>
+        <span class="input-wrap">
+          <input
+            type="text"
+            name="user-name"
+            class="modalEditing-input"
+            id="user-name"
+          />
+        </span>
+      </div>
+      <div class="modal-field">
+          <label class="modal-lable" for="user-comment">Description</label>
+          <textarea
+            name="user-comment"
+            id="user-comment"
+            class="modalEditing-text"
+            placeholder="Enter text"
+          ></textarea>
+        </div>
+        <input
+           class="modalEditing-date"
+           id="party"
+           type="datetime-local"
+           name="partydate"
+                   />
+      <div class="submit-button-container">
+          <button type="button" class="cancelEditingEle-button">Cancel</button>
+          <button type="submit" class="submitEditing-button">Save</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- Modal resolved task -->
+
+<div class="backdrop is-hidden" data-modalResolved>
+  <div class="modal modalResolved">
+    <h2 class="modalEditingTitle">Archive</h2>
+    <button type="button" class="close-btn" data-modalResolved-close>
+      <span class="data-model-span"
+        ><svg class="modal-icon-close" width="11" height="11">
+          <use href="./images/sprite.svg#icon-Vector-1"></use></svg
+      ></span>
+    </button>
+    <div class="taskResolved"></div>
+  </div>
+</div>
+
+<div class="button-div">
+<button type="submit" class="button butto-style" data-modal-open>
+  Add todo
+</button>
+<button type="submit" class="buttonResolved butto-style" data-modalResolved-open>
+  Show resolved todos
+</button>
+</div>
+<div class="tasks container"></div>
+<script src="./js/formData.js"></script>
+<!-- <script type="module" src="./js/formDataEditing.js"></script> -->
+<script src="./js/modal.js"></script>
+<script src="./js/modalEditing.js"></script>
+
+
+        <script src="./todo.js"></script>
+      </div>
+    </body>
+    </html>
