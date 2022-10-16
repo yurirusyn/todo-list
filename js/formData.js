@@ -4,7 +4,6 @@ const refs = {
     inputDate: document.querySelector(".modal-date"),
     tasksDiv: document.querySelector(".tasks"),
     task: document.querySelector(".task"),
-    // containerDiv: document.querySelector(".container"),
     formEditing: document.querySelector(".login-formEditing"),
     form: document.querySelector(".login-form"),
     resolvedBtn: document.querySelector(".buttonResolved"),
@@ -24,6 +23,7 @@ const refs = {
 
 
 let arrayOfTasks =[];
+let taskResolved = []
 let dataId;
 
 
@@ -46,7 +46,7 @@ getTaskFromLocalStorage();
 function handleSubmit(event) {
     event.preventDefault();
 
-    if (refs.inputTitle.value === "" || refs.inputDescription.value === "") {
+    if (refs.inputTitle.value === "" || refs.inputDescription.value === "" || refs.inputDate.value === "") {
       return alert("Please fill in all the fields!");
     }
     
@@ -61,17 +61,17 @@ function handleSubmit(event) {
 
     arrayOfTasks.push(task);
     addTaskToLocalStorage(arrayOfTasks);
-    addTaskToPage(arrayOfTasks);
     event.currentTarget.reset();
-    getTaskFromLocalStorage();
   }
 
 
   function handleSubmitEditing(event) {
+
+    
     event.preventDefault();
     const deadline = new Date(refs.inputDateEditing.value);
     
-    if (refs.inputTitleEditing.value === "" || refs.inputDescriptionEditing.value === "") {
+    if (refs.inputTitleEditing.value === "" || refs.inputDescriptionEditing.value === "" || refs.inputDateEditing.value === "")  {
       return alert("Please fill in all the fields!");
     }
     
@@ -83,14 +83,16 @@ function handleSubmit(event) {
         complated : false,
     };
    let replaced = [newTask, ...arrayOfTasks.filter(i => i.id !== newTask.id)]
-    arrayOfTasks.push(replaced);
-    addTaskToLocalStorage(replaced);
-    addTaskToPage(replaced);
-    event.currentTarget.reset();
+   console.log(replaced);
+
+   arrayOfTasks = replaced;
+   addTaskToLocalStorage(replaced);
+   event.currentTarget.reset();
 
   }
 
   refs.formEditing.addEventListener("submit", handleSubmitEditing)
+  refs.formEditing.addEventListener("submit", toggleModal)
   
 
 function addTaskToPage(arrayOfTasks) {
@@ -148,7 +150,7 @@ function addTaskToPage(arrayOfTasks) {
 }
 
 function addTaskToResolvedPage(arrayOfTasks) {
-
+    refs.modalResolvedDiv.innerHTML = "";
     arrayOfTasks.forEach((task) => {
         let currentTime = task.deadline - Date.now();
         const {days, hours,  minutes}  =  convertMs(currentTime);
@@ -165,7 +167,7 @@ function addTaskToResolvedPage(arrayOfTasks) {
         let taskContent = document.createElement("p")
      
         deadlineTitle.className = "deadlineTitle";
-        delButton.className = "del";
+        delButton.className = "delResolvedButoon";
         title.className = "task-title"
         taskContent.className = "task-content"
         deadline.className = "deadline"
@@ -210,6 +212,8 @@ function convertMs(ms) {
 
 function addTaskToLocalStorage(arrayOfTasks){
     window.localStorage.setItem("tasks",JSON.stringify(arrayOfTasks));
+    const taskactive = arrayOfTasks.filter(obj => obj.complated === false)
+    addTaskToPage(taskactive);
 }
 
 function getTaskFromLocalStorage(){
@@ -258,9 +262,8 @@ refs.resolvedBtn.onclick = ((e) => {
 
 
 refs.modalResolvedDiv.onclick = ((e) => {
-    if (e.target.classList.contains("del")) {
+    if (e.target.classList.contains("delResolvedButoon")) {
         deleteTaskFromLocalStorage(e.target.parentElement.getAttribute("data-id"));
-        getTaskFromLocalStorage()
         e.target.parentElement.remove();
     } 
 })
@@ -276,6 +279,9 @@ function updateStatusInLocalStorage(taskId) {
         if(task.id == taskId)
             task.complated == false ? task.complated = true:task.complated = false;
     });
+    console.log('are :>> ', arrayOfTasks);
+
+    console.log('arrayOfTasks :>> ', arrayOfTasks);
 
     addTaskToLocalStorage(arrayOfTasks);
 }
